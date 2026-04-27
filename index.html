@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+  <meta charset="UTF-8">
+  <title>TAKPAS Mock-up</title>
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css" />
+
+  <!-- Page CSS -->
+  <link rel="stylesheet" href="v4-turkmen-styles.css" />
+
+  <!-- Google API Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://gstatic.com" crossorigin>
+  <link href="https://googleapis.com" rel="stylesheet">
+</head>
+
+<body>
+
+  <div id="sidebar">
+    <div id="logobar">
+      <div id="topPart">
+        <!-- <img height="50px" src="decoration\logo-ilbank.png"> -->
+        <h3>TAKPAS-MEGSİS Servisleri <br> Mock-up Çalışması</h3>
+      </div>
+      <footer>Bilgi İçin: &#128233; <a href="mailto:mbesiktepe@ilbank.gov.tr">mbesiktepe@ilbank.gov.tr</a> &#9743; 8129 &#128196; <a href="\data\Bilgi Notu-TAKPAS-web.pdf">Bilgi Notunu İndir</a></footer>
+    </div>
+
+    <!-- FORM -->
+    <div id="formArea">
+      <p>İdari Bİlgiler ile Taşınmaz Sorgula</p>
+      <div class="form-group">
+        <label for="il">İl</label>
+        <select id="il" title="Yalnızca Aydın ili için örnek veri bulunmaktadır...">
+          <option value="">İl Seçiniz</option>
+          <option value="Aydın" selected="true">Aydın</option>
+        </select>
+        <!-- <input type="text" id="il" placeholder="İl Adını Giriniz" readonly="true" value="Aydın"> -->
+      </div>
+
+      <div class="form-group">
+        <label for="ilçe">İlçe</label>
+        <select id="ilçe" title="Yalnızca Kuşadası ilçesi için örnek veri bulunmaktadır...">
+          <option value="">İlçe Seçiniz</option>
+          <option value="Kuşadası" selected="true">Kuşadası</option>
+        </select>
+        <!-- <input type="text" id="ilce" placeholder="İlçe Adını Giriniz" readonly="true" value="Kuşadası"> -->
+      </div>
+
+      <div class="form-group">
+        <label for="mahalle">Mahalle</label>
+        <select id="mahalle" title="Yalnızca Türkmen Mahallesi için örnek veri bulunmaktadır...">
+          <option value="">Mahalle Seçiniz</option>
+          <option value="Türkmen" selected="true">Türkmen</option>
+        </select>
+        <!-- <input type="text" id="Mahalle" placeholder="Mahalle Adını Giriniz" readonly="true" value="Türkmen"> -->
+      </div>
+
+      <div class="form-group">
+        <label>Ada</label>
+        <input type="text" id="Ada" placeholder="Ada No. Giriniz" value="370">
+      </div>
+
+      <div class="form-group">
+        <label>Parsel</label>
+        <input type="text" id="Parsel" placeholder="Parsel No. Giriniz" value="12">
+        </datalist>
+      </div>
+
+      <button id="parselSorgula" onclick="parselBul()" disabled>Sorgula</button>
+    </div>
+
+    <!-- Bulunan parsellerin listeleneceği tablo -->
+
+    <div id="resultArea">
+      <p>Kadastro Bilgileri</p>
+      <table class="parcelTableHeader">
+          <thead>
+            <tr>
+              <th>Ada/Parsel</th>
+              <th>Cins</th>
+              <th>Yüzölçüm m&sup2</th>
+            </tr>
+          </thead>
+      </table>
+      <div id="parcelList">
+        <table id="parcelTable">
+          <tbody></tbody>
+        </table>
+      </div>
+      <div id="resultButtons">
+        <button id="downloadParcels" onclick="downloadResults()">Sonuçları İndir</button>
+        <button id="clearParcels" onclick="clearParcels()">Sonuçları Temizle</button>
+        <button id="queryTapu" class="animateNow" onclick="addTapuInfo()">Tapu Bilgileri Sorgula</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Leaflet Map ve tapu bilgileri tablosu-->
+  <div id="leftPane">
+    <div id="map">
+      <div id="mapLoader" class="loader hidden">
+        <div class="spinner"></div>
+        <span>Yükleniyor...</span>
+    </div>
+    </div>
+    <div id="tapuBilgiAlanı">
+      <p>Tapu Bilgileri</p>
+      <table class="tapuTableHeader">
+        <thead>
+            <tr>
+              <th>Ada/Parsel</th>
+              <th>Cins</th>
+              <th>Yüzölçüm m&sup2</th>
+              <th>Malik Bilgisi</th>
+              <th>Şerh Beyan İrtifak Bilgisi</th>
+            </tr>
+          </thead>
+      </table>
+      <div id="tapuList">
+        <table id="tapuTable">
+        <tbody>
+        </tbody>
+      </table>  
+      </div>
+    </div>
+    <footer>Bu sayfada yer alan tüm harita, tapu ve kadastro verileri hayalidir, resmi işlemlerde kullanılamazlar, verilerin kullanılmasından doğacak sorumluluk yalnızca kullanıcıya aittir.</footer>
+  </div>
+  
+
+
+  <!-- External Libs -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Turf.js/6.5.0/turf.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
+  <!-- Page JS -->
+  <script src="v4-turkmen-src.js"></script>
+</body>
+
+</html>
