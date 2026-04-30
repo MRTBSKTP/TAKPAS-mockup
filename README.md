@@ -7,7 +7,8 @@
 Çevrimiçi ortamda Tapu Kadastro Paylaşım Sistemi (TAKPAS) üzerinden alıcı kurumlarla 
 paylaşılabilmektedir. 
 </p>
-<img src="https://github.com/MRTBSKTP/TAKPAS-mockup/blob/main/data/takpas-ekran.png?raw=true">
+<img src="https://github.com/MRTBSKTP/TAKPAS-mockup/blob/main/sprites/last-frame.png?raw=true">
+
 TAKPAS üzerinde Bankamız kaynak geliştirme faaliyetleri ile birlikte mekânsal planlama 
 ve varlık yönetimi uygulamalarında faydalı olabilecek veriler paylaşılmaktadır. 
 
@@ -25,3 +26,5 @@ altyapısına kavuşturulması, <br>
 – Arazi edinimi ve kamulaştırma planlamasının için araştırma işlemlerinin otomatik 
 biçimde sorgulanabilmesi, <br>
 Olası faydalar arasında sayılabilir.
+<h2> Örnek Uygulama Ekranı / Mock-Up</h2>
+<img src="https://github.com/MRTBSKTP/TAKPAS-mockup/blob/main/data/takpas-ekran.png?raw=true">
