@@ -204,7 +204,7 @@ select:hover {
     position: relative;
 }
 
-#parselSorgula::after {
+/* #parselSorgula::after {
     content: "";
     position: absolute;
     inset: -4px;
@@ -213,7 +213,7 @@ select:hover {
     opacity: 0;
     pointer-events: none;
     animation: pulse-border 1.5s infinite;
-}
+} */
 
 #parselSorgula:disabled {
   background-color: dimgrey;
@@ -770,4 +770,115 @@ WFS katmanı geometri etikeleri
 @keyframes spin {
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
+}
+
+/* ===== INTRO SCREEN ===== */
+
+#welcomeScreen {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    z-index: 9999;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    transition: opacity 0.5s ease;
+
+    background: rgba(0, 0, 0, 0.4); /* koyu overlay */
+    
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px); /* Safari */
+
+}
+
+#welcomeScreen.fade-out {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.video-wrapper {
+    position: relative;
+    width: 70vw;
+    max-width: 1000px;
+    aspect-ratio: 16 / 9;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+
+    transition: transform 1.5s ease;
+}
+
+.video-wrapper.video-ended {
+    transform: translateY(-25px);
+}
+
+#introPoster,
+#introVideo {
+    position: absolute;
+    inset: 0; /* top:0 right:0 bottom:0 left:0 */
+
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+#introPoster {
+    z-index: 2;
+}
+
+#introVideo {
+    z-index: 1;
+}
+
+#welcomeScreen button {
+    padding: 10px 20px;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 15px;
+    background-color: var(--ilbank-koyu);
+    color: var(--ilbank-acik);
+    box-shadow: 0 0 15px rgba(0, 123, 255, 0.5);
+    transition: box-shadow 0.3s ease;;
+}
+
+#welcomeScreen button:hover {
+    background-color: #1aa338;
+    box-shadow: 0 0 50px rgba(0, 123, 255, 0.5);
+}
+
+.video-wrapper button {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+#playBtn {
+    top: 30%;
+    transform: translate(-55%, -80%);
+    z-index: 3;
+}
+
+#enterBtn {
+    opacity: 0;
+    /* transform: translateY(10px); */
+
+    transition: opacity 1.5s ease;
+    margin-top: 2px;
+
+    z-index: 2;
+}
+
+#enterBtn.video-ended {
+    opacity: 1;
+    /* transform: translateY(0); */
+}
+
+.hidden {
+    visibility: hidden;
 }

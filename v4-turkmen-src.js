@@ -49,6 +49,58 @@ const map = L.map('map', {
     layers: [satellite] // açılışta uydu
 });
 
+// Intro sonrası animasyon eklenecek elemanlar:
+const tapuQueryBtn = document.getElementById("queryTapu");
+const kadQueryBtn = document.getElementById("parselSorgula");
+
+// Intro videosu için gerekli kodlar:
+const video = document.getElementById("introVideo");
+const playBtn = document.getElementById("playBtn");
+const enterBtn = document.getElementById("enterBtn");
+const screen = document.getElementById("welcomeScreen");
+const poster = document.getElementById("introPoster");
+const wrapper = document.querySelector(".video-wrapper");
+
+
+// Başlat
+playBtn.addEventListener("click", () => {
+    poster.style.display = "none";   // görseli kaldır
+    video.classList.remove("hidden"); // videoyu göster
+    video.play();
+
+    playBtn.style.display = "none";
+});
+
+// Video bitince buton göster
+video.addEventListener("ended", () => {
+    setTimeout(() => {
+        wrapper.classList.add("video-ended");
+        enterBtn.classList.add("video-ended");
+        enterBtn.classList.remove("hidden");
+    }, 1500);
+});
+
+// Uygulamaya geç
+enterBtn.addEventListener("click", () => {
+    screen.classList.add("fade-out");
+
+    setTimeout(() => {
+        screen.style.display = "none";
+
+        // Leaflet fix (çok önemli)
+        if (typeof map !== "undefined") {
+            map.invalidateSize();
+        }
+
+        // Animasyon Gösterecek Butonları Aktive Et
+        tapuQueryBtn.classList.add("animateNow");
+        kadQueryBtn.classList.add("animateNow");
+
+        pageInit()
+
+    }, 1000);
+});
+
 // leaflet.draw için gerekli kodlar
 // Çizilen objeleri tutacak layer
 const drawnItems = new L.FeatureGroup();
@@ -254,7 +306,7 @@ function hideLoader() {
 
 // Elimizdeki örnek veri bu sınırları kapsıyor.
 // let panBounds = [[37.815387790011158, 27.293377767543369], [37.853381361024738, 27.33093894305452]];
-let panBounds = [[37.7892, 27.2360], [37.8644, 27.3418]]; // biraz daha geniş bir çerçeve...
+let panBounds = [[37.7892, 27.2360], [37.8550, 27.3418]]; // biraz daha geniş bir çerçeve...
 map.setMaxBounds(panBounds);
 map.setMinZoom(14);
 // const outer = [
@@ -284,8 +336,10 @@ map.on('overlayadd', async function (e) {
         
         showLoader("Kadastro Harita Katmanı Yükleniyor ... ")
 
+        let bounds;
+
         try {
-            const bounds = await getImageBounds(
+            bounds = await getImageBounds(
             "data/images/wms-turkmen-zengin-gorsel.pgw",
             "data/images/wms-turkmen-zengin-gorsel.png"
         );
@@ -304,12 +358,13 @@ map.on('overlayadd', async function (e) {
         } catch (err) {
             console.error(err);
             hideLoader(); // hata durumunda da kapat
-        } 
-    }
-    // Harita gezinmesini kısıtla
-    map.panInsideBounds(bounds, {
+        }
+        
+        // Harita gezinmesini kısıtla
+        map.panInsideBounds(bounds, {
         duration: 3
     });
+    }
 });
 
 // TAKPAS MEGSİS katmanları kapatıldığında yeniden serbest gezinme ayarı,
@@ -986,4 +1041,4 @@ async function pageInit () {
     hideLoader();
 }
 
-window.addEventListener("load", pageInit());
+// window.addEventListener("load", pageInit());

@@ -20,6 +20,21 @@
 
 <body>
 
+  <div id="welcomeScreen">
+    <div class="video-wrapper">
+
+      <!-- İlk frame görsel -->
+      <img id="introPoster" src="sprites/first-frame.png">
+
+      <video id="introVideo" preload="auto">
+        <source src="sprites/intro_vid.mp4" type="video/mp4">
+      </video>
+
+      <button id="playBtn">Tanıtımı Başlat </button>
+    </div>
+    <button id="enterBtn" class="hidden">Uygulamaya Geç &#9658;</button>
+  </div>
+
   <div id="sidebar">
     <div id="logobar">
       <div id="topPart">
@@ -94,7 +109,7 @@
       <div id="resultButtons">
         <button id="downloadParcels" onclick="downloadResults()">Sonuçları İndir</button>
         <button id="clearParcels" onclick="clearParcels()">Sonuçları Temizle</button>
-        <button id="queryTapu" class="animateNow" onclick="addTapuInfo()">Tapu Bilgileri Sorgula</button>
+        <button id="queryTapu" onclick="addTapuInfo()">Tapu Bilgileri Sorgula</button>
       </div>
     </div>
   </div>
